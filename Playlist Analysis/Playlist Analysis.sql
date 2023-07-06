@@ -25,3 +25,10 @@ WITH track_durations(track_duration_ms) AS (
  AS 'Track Minutes' FROM playlist)
 
 SELECT MIN(track_duration_ms) AS 'Shortest Duration', MAX(track_duration_ms) AS 'Longest Duration', AVG(track_duration_ms) AS 'Average Duration' FROM track_durations;
+
+
+-- 4. top 3 artists with most tracks
+
+SELECT TOP(3) name_of_artists, COUNT(track_name) AS tracks FROM playlist
+GROUP BY name_of_artists
+ORDER BY tracks DESC;
