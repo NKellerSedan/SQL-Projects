@@ -21,8 +21,8 @@ SELECT MIN(track_duration_ms) AS 'Shortest Duration (MS)', MAX(track_duration_ms
 
 --Minutes
 WITH track_durations(track_duration_ms) AS (
-	SELECT CAST(track_duration_ms AS NUMERIC)%(1000*60*60)/(1000*60)
- AS 'Track Minutes' FROM playlist)
+    SELECT CAST(track_duration_ms AS NUMERIC)%(1000*60*60)/(1000*60)
+    AS 'Track Minutes' FROM playlist)
 
 SELECT MIN(track_duration_ms) AS 'Shortest Duration', MAX(track_duration_ms) AS 'Longest Duration', AVG(track_duration_ms) AS 'Average Duration' FROM track_durations;
 
@@ -44,7 +44,7 @@ ORDER BY "Popularity" DESC;
 -- 6. comparison between solo artist vs multiple artists
 
 SELECT
-	SUM(CASE WHEN multiple_artists_bool = 0 THEN 1 ELSE 0 END) AS 'Solo',
+    SUM(CASE WHEN multiple_artists_bool = 0 THEN 1 ELSE 0 END) AS 'Solo',
     SUM(CASE WHEN multiple_artists_bool >= 1 THEN 1 ELSE 0 END) AS 'Multiple'  
 FROM playlist;
 
@@ -52,9 +52,8 @@ FROM playlist;
 -- 7. top 10 popular tracks
 
 WITH ranking(track_name, track_popularity, Rank) AS  (
-SELECT DISTINCT track_name, 
-       track_popularity,  
-       DENSE_RANK() OVER(PARTITION BY track_name ORDER BY track_popularity DESC) AS Rank
+    SELECT DISTINCT track_name, track_popularity, 
+    DENSE_RANK() OVER(PARTITION BY track_name ORDER BY track_popularity DESC) AS Rank
 FROM playlist
 )
 
