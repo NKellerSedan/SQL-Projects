@@ -32,3 +32,9 @@ SELECT MIN(track_duration_ms) AS 'Shortest Duration', MAX(track_duration_ms) AS 
 SELECT TOP(3) name_of_artists, COUNT(track_name) AS tracks FROM playlist
 GROUP BY name_of_artists
 ORDER BY tracks DESC;
+
+-- 5. top 3 popular artists and their most popular track
+
+SELECT TOP(3) name_of_artists, SUM(track_popularity) AS "Popularity", track_name AS tracks FROM playlist
+GROUP BY name_of_artists, track_name
+ORDER BY "Popularity" DESC;
