@@ -33,8 +33,17 @@ SELECT TOP(3) name_of_artists, COUNT(track_name) AS tracks FROM playlist
 GROUP BY name_of_artists
 ORDER BY tracks DESC;
 
+
 -- 5. top 3 popular artists and their most popular track
 
 SELECT TOP(3) name_of_artists, SUM(track_popularity) AS "Popularity", track_name AS tracks FROM playlist
 GROUP BY name_of_artists, track_name
 ORDER BY "Popularity" DESC;
+
+
+-- 6. comparison between solo artist vs multiple artists
+
+SELECT
+	SUM(CASE WHEN multiple_artists_bool = 0 THEN 1 ELSE 0 END) AS 'Solo',
+    SUM(CASE WHEN multiple_artists_bool >= 1 THEN 1 ELSE 0 END) AS 'Multiple'  
+FROM playlist;
