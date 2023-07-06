@@ -27,21 +27,21 @@ WITH track_durations(track_duration_ms) AS (
 SELECT MIN(track_duration_ms) AS 'Shortest Duration', MAX(track_duration_ms) AS 'Longest Duration', AVG(track_duration_ms) AS 'Average Duration' FROM track_durations;
 
 
--- 4. top 3 artists with most tracks
+-- 4. Top 3 artists with most tracks
 
 SELECT TOP(3) name_of_artists, COUNT(track_name) AS tracks FROM playlist
 GROUP BY name_of_artists
 ORDER BY tracks DESC;
 
 
--- 5. top 3 popular artists and their most popular track
+-- 5. Top 3 popular artists and their most popular track
 
 SELECT TOP(3) name_of_artists, SUM(track_popularity) AS "Popularity", track_name AS tracks FROM playlist
 GROUP BY name_of_artists, track_name
 ORDER BY "Popularity" DESC;
 
 
--- 6. comparison between solo artist vs multiple artists
+-- 6. Comparison between solo artist vs multiple artists
 
 SELECT
     SUM(CASE WHEN multiple_artists_bool = 0 THEN 1 ELSE 0 END) AS 'Solo',
@@ -49,7 +49,7 @@ SELECT
 FROM playlist;
 
 
--- 7. top 10 popular tracks
+-- 7. Top 10 popular tracks
 
 WITH ranking(track_name, track_popularity, Rank) AS  (
     SELECT DISTINCT track_name, track_popularity, 
