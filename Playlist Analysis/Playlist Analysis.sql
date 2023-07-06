@@ -47,3 +47,17 @@ SELECT
 	SUM(CASE WHEN multiple_artists_bool = 0 THEN 1 ELSE 0 END) AS 'Solo',
     SUM(CASE WHEN multiple_artists_bool >= 1 THEN 1 ELSE 0 END) AS 'Multiple'  
 FROM playlist;
+
+
+-- 7. top 10 popular tracks
+
+WITH ranking(track_name, track_popularity, Rank) AS  (
+SELECT DISTINCT track_name, 
+       track_popularity,  
+       DENSE_RANK() OVER(PARTITION BY track_name ORDER BY track_popularity DESC) AS Rank
+FROM playlist
+)
+
+SELECT TOP(10) track_name, track_popularity FROM ranking
+WHERE Rank = 1
+ORDER BY track_popularity DESC;
