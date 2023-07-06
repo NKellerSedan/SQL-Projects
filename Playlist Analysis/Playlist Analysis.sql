@@ -15,3 +15,13 @@ SELECT MIN(number_of_tracks_in_album) AS 'Least Tracks', MAX(number_of_tracks_in
 
 --Milliseconds
 SELECT MIN(track_duration_ms) AS 'Shortest Duration (MS)', MAX(track_duration_ms) AS 'Longest Duration (MS)', AVG(track_duration_ms) AS 'Average Duration (MS)' FROM playlist;
+
+
+-- 3.5. Display Longest, Shortest, average track duration as Minutes
+
+--Minutes
+WITH track_durations(track_duration_ms) AS (
+	SELECT CAST(track_duration_ms AS NUMERIC)%(1000*60*60)/(1000*60)
+ AS 'Track Minutes' FROM playlist)
+
+SELECT MIN(track_duration_ms) AS 'Shortest Duration', MAX(track_duration_ms) AS 'Longest Duration', AVG(track_duration_ms) AS 'Average Duration' FROM track_durations;
